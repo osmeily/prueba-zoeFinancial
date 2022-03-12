@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { AgentState } from '../Context'
+import React, { useContext, useEffect, useState } from 'react'
+import { Matches } from '../Context'
 import Card from './Card'
 import ShowBtn from './ShowBtn'
 
 const Cards = () => {
-    const {state, dispatch} = AgentState
+
+    const {dataFiltered, setDataFiltered, hiddenAgents, setHiddenAgents, sortBy} = useContext(Matches)
     const [agents, setAgents] = useState([])
     const [quantity, setQuantity] = useState(3)
 
     const sliceData = (num) =>{
         let slicedAgents = []
         for (let i = 0; i < num; i++) {
-            slicedAgents.push(state.agents[i])
+            slicedAgents.push(dataFiltered[i])
         }
         setAgents(slicedAgents)
     }
 
     useEffect(()=>{
         sliceData(quantity)
-        let sortedData = state.agents
+        let sortedData = dataFiltered
         switch (sortBy) {
             case "":
                 
@@ -28,28 +29,28 @@ const Cards = () => {
                 sortedData.sort(function(a, b) {
                     return a.name.localeCompare(b.name);
                 });
-                setstate.agents(sortedData)
+                setDataFiltered(sortedData)
                 sliceData(quantity)
                 break;
             case "id":
                 sortedData.sort(function(a, b) {
                     return a.id - b.id;
                 });
-                setstate.agents(sortedData)
+                setDataFiltered(sortedData)
                 sliceData(quantity)
                 break;
             case "high":
                 sortedData.sort(function(a, b) {
                     return b.income - a.income;
                 });
-                setstate.agents(sortedData)
+                setDataFiltered(sortedData)
                 sliceData(quantity)
                 break;
             case "low":
                 sortedData.sort(function(a, b) {
                     return a.income - b.income;
                 });
-                setstate.agents(sortedData)
+                setDataFiltered(sortedData)
                 sliceData(quantity)
             break;
             default:
@@ -58,7 +59,7 @@ const Cards = () => {
                 break;
         }
     
-    }, [quantity, sortBy, state.agents, setstate.agents])
+    }, [quantity, sortBy, dataFiltered, setDataFiltered])
     console.log(hiddenAgents)
     return (
         <div className='flex flex-col gap-4 w-4/5 m-auto lg:flex-col lg:gap-6 lg:m-auto lg:justify-center lg:items-center lg:w-full'>
@@ -73,7 +74,7 @@ const Cards = () => {
                 )
             }
             </div>
-            <ShowBtn setQuantity={setQuantity} quantity={quantity} agentsNumber={state.agents.length} />
+            <ShowBtn setQuantity={setQuantity} quantity={quantity} agentsNumber={dataFiltered.length} />
         </div>
     )
 }

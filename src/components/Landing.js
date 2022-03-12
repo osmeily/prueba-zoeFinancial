@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import userImg from "../assets/userVector.png"
 import { MdAttachMoney, MdArrowForward } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import { AgentState } from '../Context';
+import { Matches } from '../Context';
 
 const Landing = ({ data }) => {
 
-    const [inputText, setInputText] = useState("")
-    const {dispatch} = AgentState()
+    
+    const {inputText, setInputText, setDataFiltered} = useContext(Matches)
 
     const handleInput = (e) => {
         setInputText(e.target.value)
@@ -21,10 +21,7 @@ const Landing = ({ data }) => {
         e.preventDefault()
         const integer = parseInt(inputText)
         const dataFilter = data.filter((agent) => agent.income > (integer - 10000) && agent.income < (integer + 10000))
-        dispatch({
-            type: "SET_TEXT",
-            payload: dataFilter
-        })
+        setDataFiltered(dataFilter)
         navigate("/match-list")
     }
 
