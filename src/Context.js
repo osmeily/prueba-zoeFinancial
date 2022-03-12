@@ -1,17 +1,25 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useReducer, useState } from 'react'
+import { agentReducer } from './Reducers'
 
-export const Matches = createContext()
+export const Agents = createContext()
 
 const Context = ({children}) => {
 
-    const [dataFiltered, setDataFiltered] = useState([])
-    const [hiddenAgents, setHiddenAgents] = useState([])
-    const [sortBy, setSortBy] = useState("")
-    const [inputText, setInputText] = useState("")
+    const [state, dispatch] = useReducer(agentReducer, {
+        agents : [],
+        hiddenAgents : [],
+        searchText : ""
+    })
+
+    // const [sortBy, setSortBy] = useState("")
 
     return (
-        <Matches.Provider value={{inputText, setInputText, sortBy, setSortBy, dataFiltered, setDataFiltered, hiddenAgents, setHiddenAgents}}>{children}</Matches.Provider>
+        <Agents.Provider value={{state, dispatch}}>{children}</Agents.Provider>
     )
 }
 
 export default Context
+
+export const AgentState = () => {
+    return useContext(Agents)
+}

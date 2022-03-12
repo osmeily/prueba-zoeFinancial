@@ -1,19 +1,11 @@
 import React, { useContext } from 'react'
-import { Matches } from '../Context'
 import userDefault from "../assets/user-default.png"
 
 const Card = ({agent}) => {
 
-    const {hiddenAgents, setHiddenAgents} = useContext(Matches)
-
-    const clickedAgent = () => {
-        setHiddenAgents([...hiddenAgents, agent.id])
-    } 
-
-    console.log(hiddenAgents)
 
     return (
-        <section onClick={clickedAgent} className='shadow-[2px_5px_8px_4px_rgba(0,0,0,0.1)] w-full m-auto py-2 flex gap-2 justify-evenly rounded-xl text-secondaryText cursor-pointer hover:scale-105 lg:flex-col lg:items-center lg:gap-4 lg:max-w-max lg:py-0 lg:pt-8 lg:justify-center lg:m-auto'>
+        <section  className='shadow-[2px_5px_8px_4px_rgba(0,0,0,0.1)] w-full m-auto py-2 flex gap-2 justify-evenly rounded-xl text-secondaryText cursor-pointer hover:scale-105 lg:flex-col lg:items-center lg:gap-4 lg:max-w-max lg:py-0 lg:pt-8 lg:justify-center lg:m-auto'>
             <div className='rounded-full overflow-hidden w-20 aspect-square lg:w-28'>
                 <img className='w-full object-cover h-full' src={agent.avatar === "" ? userDefault : agent.avatar} alt="" />
             </div>
