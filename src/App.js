@@ -1,5 +1,8 @@
 import React, { useEffect, useState }  from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./components/Landing";
+import MatchList from "./components/MatchList";
+import Navbar from "./components/Navbar";
 
 function App() {
   
@@ -12,7 +15,6 @@ function App() {
     setGivenData(data)
   }
 
-  console.log(givenData)
 
   useEffect(() => {
   getData()
@@ -21,7 +23,14 @@ function App() {
 
   return (
     <div className="App">
-      <Landing data={givenData}/>
+      <Navbar/>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ <Landing data={givenData}/>}/>
+        <Route path="/match-list" element={ <MatchList/>}/>
+
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
