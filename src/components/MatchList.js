@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Matches } from '../Context'
 import Cards from './Cards'
 import NotFound from './NotFound'

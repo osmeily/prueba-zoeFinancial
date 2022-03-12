@@ -5,7 +5,7 @@ import ShowBtn from './ShowBtn'
 
 const Cards = () => {
 
-    const {dataFiltered, setDataFiltered, hiddenAgents, setHiddenAgents, sortBy} = useContext(Matches)
+    const {dataFiltered, setDataFiltered, hiddenAgents, sortBy} = useContext(Matches)
     const [agents, setAgents] = useState([])
     const [quantity, setQuantity] = useState(3)
 
@@ -59,8 +59,8 @@ const Cards = () => {
                 break;
         }
     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quantity, sortBy, dataFiltered, setDataFiltered])
-    console.log(hiddenAgents)
     return (
         <div className='flex flex-col gap-4 w-4/5 m-auto lg:flex-col lg:gap-6 lg:m-auto lg:justify-center lg:items-center lg:w-full'>
             <div className='flex flex-col gap-4 lg:grid lg:grid-cols-3'>
